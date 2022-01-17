@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>C0721G1 Cinema Management</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto%7CVarela+Round"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+    <!-- JS, Popper.js, and jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet prefetch"
+          href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css"/>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+
+    <link href="sidebar.css" rel="stylesheet" type="text/css">
+    <style>
+        .nav-side-menu {
+            overflow: auto;
+            font-weight: 200;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            color: black;
+        }
+
+        .nav-side-menu .brand {
+            line-height: 50px;
+            display: block;
+            text-align: center;
+        }
+
+        .nav-side-menu .toggle-btn {
+            display: none;
+        }
+
+        .nav-side-menu ul,
+        .nav-side-menu li {
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+            line-height: 35px;
+            cursor: pointer;
+        }
+
+        .nav-side-menu ul :not(collapsed) .arrow:before,
+        .nav-side-menu li :not(collapsed) .arrow:before {
+            font-family: FontAwesome;
+            content: "\f078";
+            display: inline-block;
+            padding-left: 10px;
+            padding-right: 10px;
+            vertical-align: middle;
+            float: right;
+        }
+
+        .nav-side-menu ul .active,
+        .nav-side-menu li .active {
+            border-left: 3px solid #d19b3d;
+            background-color: #058af0;
+        }
+
+        .nav-side-menu ul .sub-menu li.active,
+        .nav-side-menu li .sub-menu li.active {
+            color: #d19b3d;
+        }
+
+        .nav-side-menu ul .sub-menu li.active a,
+        .nav-side-menu li .sub-menu li.active a {
+            color: #d19b3d;
+        }
+
+        .nav-side-menu ul .sub-menu li,
+        .nav-side-menu li .sub-menu li {
+            border: none;
+            line-height: 28px;
+            border-bottom: 1px solid #23282e;
+            margin-left: 0px;
+        }
+
+        .nav-side-menu ul .sub-menu li:hover,
+        .nav-side-menu li .sub-menu li:hover {
+            background-color: #058af0;
+        }
+
+        .nav-side-menu ul .sub-menu li:before,
+        .nav-side-menu li .sub-menu li:before {
+            font-family: FontAwesome;
+            content: "\f105";
+            display: inline-block;
+            padding-left: 10px;
+            padding-right: 10px;
+            vertical-align: middle;
+        }
+
+        .nav-side-menu li {
+            padding-left: 0px;
+            border-left: 3px solid #2e353d;
+            border-bottom: 1px solid #23282e;
+        }
+
+        .nav-side-menu li a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .nav-side-menu li a i {
+            padding-left: 10px;
+            width: 20px;
+            padding-right: 20px;
+        }
+
+        .image:hover {
+            border-left: 3px solid #d19b3d;
+            background-color: #058af0;
+            -webkit-transition: all 1s ease;
+            -moz-transition: all 1s ease;
+            -o-transition: all 1s ease;
+            -ms-transition: all 1s ease;
+            transition: all 1s ease;
+        }
+
+        .nav-side-menu .menu-list .menu-content {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container-fluid"
+     style="background-image: url(https://s3.cloud.cmctelecom.vn/tinhte1/2018/09/4429707_123.jpg); background-size: cover; color: white">
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="nav-side-menu"
+                 style="background-image: url(https://britasia.tv/wp-content/uploads/2019/08/p4iaEa4.jpg); background-size: cover">
+                <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
+                <div class="menu-list" style="color: white">
+                    <ul id="menu-content" class="menu-content collapse out">
+                        <li style="text-align: center; border: 0px">
+                            <img src="https://play-lh.googleusercontent.com/MNOr3PXIHV73CT_SX3CDuHkML7BF00ZDAU_SpSGFwzWRkyLn8vC1Rz5iRd3MfpvtNF61"
+                                 width="150" height="150"/>
+                            <p><span class="badge badge-pill badge-info">Nguyễn Quang Nhật</span></p>
+                            <p><i class="fas fa-coins"></i> Điểm tích lũy: 120</p>
+                            <button type="button" class="btn btn-primary" style="margin-bottom: 2%"><i
+                                    class="fas fa-sign-out-alt"></i> Đăng xuất
+                            </button>
+                        </li>
+                        <li data-toggle="collapse" data-target="#support" class="collapsed image" style="border: 0px">
+                            <a routerLink="/system/maintenance"><i class="fas fa-user-alt"></i> Thông tin tài khoản </a>
+                        </li>
+                        <li data-toggle="collapse" data-target="#support" class="collapsed image" style="border: 0px">
+                            <a routerLink="/system/maintenance"><i class="fas fa-notes-medical"></i> Lịch sử </a>
+                        </li>
+                        <li data-toggle="collapse" data-target="#support" class="collapsed image" style="border: 0px">
+                            <a routerLink="/system/maintenance"><i class="fas fa-tag"></i> Vé đã đặt </a>
+                        </li>
+                        <li data-toggle="collapse" data-target="#support" class="collapsed image" style="border: 0px">
+                            <a routerLink="/system/maintenance"><i class="fas fa-tag"></i> Vé đã hủy </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-7">
+                <h2 class="text-center mt-4">Chỉnh sửa tài khoản</h2>
+                <form [formGroup]="employeeForm" (ngSubmit)="submit()">
+                    <div class="form-group row mb-3 ">
+                        <label class="col-lg-3 col-form-label" for="name">Họ và tên chủ tài khoản<span
+                                style="color: red">(*)</span></label>
+                        <div class="col-lg-9">
+                            <input type="text" id="userName" class="form-control" formControlName="userName" readonly placeholder="Nguyễn Thanh Bình">
+                            <!--                                <div *ngIf="!name.valid && (name.dirty || name.touched)">-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.required">Vui lòng nhập họ và tên.</div>-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.pattern">Tên không được chứa kí tự số hoặc kí tự đặc biệt.</div>-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.minlength">Tên tối thiểu có 2 kí tự.</div>-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.maxlength">Tên tối đa có 30 kí tự.</div>-->
+                            <!--                                </div>-->
+                            <!--                                <div *ngIf="!checkerr">-->
+                            <!--                                    <div style="color: red" *ngFor="let s of errorDB">-->
+                            <!--                                        <div *ngIf="s.field == 'name' ">-->
+                            <!--                                            <div style="color: red">{{s.defaultMessage}}</div>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                        </div>
+                    </div>
+                    <div class="form-group row mb-3 ">
+                        <label class="col-lg-3 col-form-label" for="name">Tên tài khoản<span
+                                style="color: red">(*)</span></label>
+                        <div class="col-lg-9">
+                            <input type="text" id="userName" class="form-control" formControlName="userName" readonly placeholder="thanhbinhkd95@gmail.com">
+                            <!--                                <div *ngIf="!name.valid && (name.dirty || name.touched)">-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.required">Vui lòng nhập họ và tên.</div>-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.pattern">Tên không được chứa kí tự số hoặc kí tự đặc biệt.</div>-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.minlength">Tên tối thiểu có 2 kí tự.</div>-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.maxlength">Tên tối đa có 30 kí tự.</div>-->
+                            <!--                                </div>-->
+                            <!--                                <div *ngIf="!checkerr">-->
+                            <!--                                    <div style="color: red" *ngFor="let s of errorDB">-->
+                            <!--                                        <div *ngIf="s.field == 'name' ">-->
+                            <!--                                            <div style="color: red">{{s.defaultMessage}}</div>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                        </div>
+                    </div>
+                    <div class="form-group row mb-3 ">
+                        <label class="col-lg-3 col-form-label" for="name">Mật khẩu cũ<span
+                                style="color: red">(*)</span></label>
+                        <div class="col-lg-9">
+                            <input type="text" id="password" class="form-control" formControlName="password">
+                            <!--                                <div *ngIf="!name.valid && (name.dirty || name.touched)">-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.required">Vui lòng nhập họ và tên.</div>-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.pattern">Tên không được chứa kí tự số hoặc kí tự đặc biệt.</div>-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.minlength">Tên tối thiểu có 2 kí tự.</div>-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.maxlength">Tên tối đa có 30 kí tự.</div>-->
+                            <!--                                </div>-->
+                            <!--                                <div *ngIf="!checkerr">-->
+                            <!--                                    <div style="color: red" *ngFor="let s of errorDB">-->
+                            <!--                                        <div *ngIf="s.field == 'name' ">-->
+                            <!--                                            <div style="color: red">{{s.defaultMessage}}</div>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                        </div>
+                    </div>
+                    <div class="form-group row mb-3 ">
+                        <label class="col-lg-3 col-form-label" for="name">Mật khẩu mới<span
+                                style="color: red">(*)</span></label>
+                        <div class="col-lg-9">
+                            <input type="text" id="password" class="form-control" formControlName="password">
+                            <!--                                <div *ngIf="!name.valid && (name.dirty || name.touched)">-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.required">Vui lòng nhập họ và tên.</div>-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.pattern">Tên không được chứa kí tự số hoặc kí tự đặc biệt.</div>-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.minlength">Tên tối thiểu có 2 kí tự.</div>-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.maxlength">Tên tối đa có 30 kí tự.</div>-->
+                            <!--                                </div>-->
+                            <!--                                <div *ngIf="!checkerr">-->
+                            <!--                                    <div style="color: red" *ngFor="let s of errorDB">-->
+                            <!--                                        <div *ngIf="s.field == 'name' ">-->
+                            <!--                                            <div style="color: red">{{s.defaultMessage}}</div>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                        </div>
+                    </div>
+                    <div class="form-group row mb-3 ">
+                        <label class="col-lg-3 col-form-label" for="name">Nhập lại mật khẩu mới<span
+                                style="color: red">(*)</span></label>
+                        <div class="col-lg-9">
+                            <input type="text" id="confirmPassword" class="form-control"
+                                   formControlName="confirmPassword">
+                            <!--                                <div *ngIf="!name.valid && (name.dirty || name.touched)">-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.required">Vui lòng nhập họ và tên.</div>-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.pattern">Tên không được chứa kí tự số hoặc kí tự đặc biệt.</div>-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.minlength">Tên tối thiểu có 2 kí tự.</div>-->
+                            <!--                                    <div style="color: red" [hidden]="!name.errors.maxlength">Tên tối đa có 30 kí tự.</div>-->
+                            <!--                                </div>-->
+                            <!--                                <div *ngIf="!checkerr">-->
+                            <!--                                    <div style="color: red" *ngFor="let s of errorDB">-->
+                            <!--                                        <div *ngIf="s.field == 'name' ">-->
+                            <!--                                            <div style="color: red">{{s.defaultMessage}}</div>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row mb-3">
+                        <div class="col-lg-3"></div>
+                        <div class="col-lg-9">
+                            <button type="submit" class="btn btn-primary mr-lg-3" [disabled]="!employeeForm.valid"
+                                    data-toggle="modal" data-target="#staticBackdrop">Thay đổi mật khẩu
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-12">
+                <div class="container">
+                    <div class="row row justify-content-center">
+                        <div class="col-sm-7">
+                            <h2 class="text-center mt-4">THÔNG TIN KHÁCH HÀNG</h2>
+                            <br>
+                            <form [formGroup]="customerForm" (ngSubmit)="submit()">
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label" for="avarta">Chọn ảnh avarta</label>
+                                    <div class="col-sm-9">
+                                        <label>
+                                            <img id="output"
+                                                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSi5I8XtJE9eyhOQYC8BBOSqYla5y3XtiJWn84TExYwZ3aUAZiSkeZf03Kp7oHrmHPwDok&usqp=CAU"
+                                                 width="150"
+                                                 height="150"/>
+                                            <input type="file" accept="image/*" onchange="loadFile(event)"
+                                                   id="avarta" name="myfile"
+                                                   style="display:none" (change)="showPreview($event)">
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label" for="movie-name">Họ & Tên<span
+                                            style="color: red">(*)</span>: </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" id="movie-name" class="form-control" placeholder="Nguyễn Thanh Bình" >
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-3">
+                                    <label class="col-sm-3 col-form-label" for="movie-name">Email<span
+                                            style="color: red">(*)</span>: </label>
+                                    <div class="col-sm-9">
+                                        <input type="email" id="movie-email" class="form-control" placeholder="thanhbinhkd95@gmail.com">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-3 ">
+                                    <label class="col-sm-3 col-form-label" for="endDate">Ngày sinh<span
+                                            style="color: red">(*)</span></label>
+                                    <div class="col-9">
+                                        <input type="date" min="0" id="endDate" class="form-control" placeholder="14-02-1995">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-3 ">
+                                    <label class="col-sm-3 col-form-label" for="actor">Sao hiện tại<span
+                                            style="color: red">(*)</span></label>
+                                    <div class="col-9">
+                                        <input type="text" id="actor" class="form-control" placeholder="400">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-3 ">
+                                    <label class="col-sm-3 col-form-label" for="studio">Chi tiêu 2022<span
+                                            style="color: red">(*)</span></label>
+                                    <div class="col-9">
+                                        <input type="text" id="studio" class="form-control" placeholder="400.000VND">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-3 ">
+                                    <label class="col-sm-3 col-form-label" for="duration">Số điện thoại<span
+                                            style="color: red">(*)</span></label>
+                                    <div class="col-9">
+                                        <input type="text" id="duration" class="form-control" placeholder="0773376706">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row mb-3 ">
+                                    <label class="col-sm-3 col-form-label" for="content">Địa chỉ<span
+                                            style="color: red">(*)</span></label>
+                                    <div class="col-9">
+                                        <textarea id="content" class="form-control" placeholder="68 Nguyễn Lai, phường Khuê Trung quận Cẩm Lệ, thành phố Đà Nẵng"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-3">
+                                    <div class="col-sm-12 text-center">
+                                        <button type="submit" class="btn btn-primary mr-5"
+                                                style="width: 100px;height: 40px" data-toggle="modal"
+                                                data-target="#staticBackdrop">Lưu
+                                        </button>
+                                        <button type="button" class="btn btn-secondary"
+                                                style="width: 100px;height: 40px">Hủy
+                                        </button>
+                                    </div>
+                                </div>
+                                <br>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
